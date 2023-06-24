@@ -1,0 +1,83 @@
+.wrappp {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.titles_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.titles_box > img {
+  margin-bottom: 20px;
+}
+
+.left {
+  position: relative;
+  width: 50%;
+  height: 95vh;
+  left: 15px;
+  z-index: 10;
+  background-color: #03544c;
+  border-radius: 30px;
+  /* border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px; */
+}
+.right {
+  position: relative;
+  width: 50%;
+  height: 100vh;
+  background-color: #fff;
+  /* border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px; */
+}
+
+.btnss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.green {
+  color: #03544c;
+}
+
+.left > img,
+.right > img {
+  position: absolute;
+  width: 500px;
+}
+.left > img {
+  left: 0;
+}
+.right > img {
+  top: 80px;
+  right: 0;
+}
+
+.user-box > input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.user-box > input {
+  font-family: "Ubuntu", sans-serif;
+  background: #ffffff;
+  border: 2px solid #eeeeee;
+  border-radius: 15px;
+  padding: 15px;
+  outline: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #aaaaaa;
+}
+
+.user-box > input:focus {
+  border: 2px solid red;
+}
