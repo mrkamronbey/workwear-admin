@@ -5,13 +5,14 @@ import ProjectsSlice from "./projects/index";
 import ContactSlice from './contact/index';
 import CategorySlice from './category/index'
 import ProductSlice from './products/index'
+import NewsSlice from './news/index'
 export const store = configureStore({
   reducer: {
     admin: authSlice,
     adminadd: AdminSlice,
-    projects: ProjectsSlice,
     contact: ContactSlice,
     category: CategorySlice,
-    product: ProductSlice
+    product: ProductSlice,
+    news: NewsSlice
   },
 });

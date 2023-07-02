@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 
   h3 {
     font-style: normal;
+    margin: 0;
     font-weight: 400;
     font-size: 24px;
     line-height: 28px;

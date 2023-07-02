@@ -19,8 +19,8 @@ function ContactComponent() {
     dispatch(GetContact());
   }, []);
 
-  const HandleDelete = async () => {
-    await dispatch(DeleteContact(contactId));
+  const HandleDelete = async (e) => {
+    await dispatch(DeleteContact(e.currentTarget.id));
     dispatch(GetContact());
   };
   if (contactdelete.deleteContact.Success == true) {
@@ -29,7 +29,7 @@ function ContactComponent() {
 
   return (
     <>
-      <TableAdd onClickDelete={handleDeleteModal} />
+      <TableAdd onClickDelete={handleDeleteModal} HandleDelete={HandleDelete} />
       <Delete
         contactId={contactId}
         HandleDelete={HandleDelete}

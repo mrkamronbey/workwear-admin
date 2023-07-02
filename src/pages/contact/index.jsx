@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import Sidebar from "../../components/sidebar";
 import ContactComponent from "../../components/contact/index";
 import { GetContact } from "../../redux/contact/index";
+import HorizontalSidebar from "../../components/horizontal-sidebar";
 function Partner() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -14,12 +15,12 @@ function Partner() {
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   return (
-    <Sidebar>
-      <WrapperContainer>
+    <HorizontalSidebar>
+      <WrapperContainer style={{marginTop: '112px'}}>
         <HeaderTopCommon title={"Контакт"} onClick={handleOpen} isBtn={false} />
         <ContactComponent handleClose={handleClose} open={open} />
       </WrapperContainer>
-    </Sidebar>
+    </HorizontalSidebar>
   );
 }
 export default Partner;

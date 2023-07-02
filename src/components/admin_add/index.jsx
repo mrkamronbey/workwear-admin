@@ -20,17 +20,17 @@ function AdminAddComponent({ open, handleClose }) {
     setAdminId(e.target.id);
     setOpenPut(true);
   };
-  const HandleDelete = async () => {
-    await dispatch(adminDelete(adminId));
+  const HandleDelete = async (e) => {
+    await dispatch(adminDelete(e.currentTarget.id));
     dispatch(adminGet());
     handleCloseDelete();
   };
   return (
     <>
       <AdminAddForm Open={open} HandleClose={handleClose} />
-      <TableAdd onClickDelete={handleDeleteModal} onClickPut={handlePutModal} />
+      <TableAdd onClickDelete={handleDeleteModal} HandleDelete={HandleDelete} onClickPut={handlePutModal} />
       <Delete
-        HandleDelete={HandleDelete}
+        // HandleDelete={HandleDelete}
         openDelete={openDelete}
         handleCloseDelete={handleCloseDelete}
       />

@@ -18,11 +18,11 @@ function CategoryAddComponent({ open, handleClose }) {
   const [openPut, setOpenPut] = useState(false);
   const handleClosePut = () => setOpenPut(false);
   const handlePutModal = (e) => {
-    setCategoryId(e.target.id);
+    setCategoryId(e.currentTarget.id);
     setOpenPut(true);
   };
-  const HandleDelete = () => {
-    dispatch(CategoryDelete(categoryId));
+  const HandleDelete = (e) => {
+    dispatch(CategoryDelete(e.currentTarget.id));
   };
   if (categorydelete.categoryDelete.Success == true) {
     window.location.reload();
@@ -33,9 +33,9 @@ function CategoryAddComponent({ open, handleClose }) {
   return (
     <>
       <CategoryAddForm Open={open} HandleClose={handleClose} />
-      <TableAdd onClickDelete={handleDeleteModal} onClickPut={handlePutModal} />
+      <TableAdd onClickDelete={handleDeleteModal} HandleDelete={HandleDelete} onClickPut={handlePutModal} />
       <Delete
-        HandleDelete={HandleDelete}
+        // HandleDelete={HandleDelete}
         openDelete={openDelete}
         handleCloseDelete={handleCloseDelete}
       />

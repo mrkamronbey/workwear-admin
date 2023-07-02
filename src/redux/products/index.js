@@ -11,14 +11,11 @@ export const ProductGet = createAsyncThunk("products/get", async () => {
     .then((response) => response.data);
 });
 
-export const ProductDelete = createAsyncThunk(
-  "products/delete",
-  async (id) => {
-    return await axios
-      .delete(`${API_URL}/products/${id}`)
-      .then((response) => response.data);
-  }
-);
+export const ProductDelete = createAsyncThunk("products/delete", async (id) => {
+  return await axios
+    .delete(`${API_URL}/products/${id}`)
+    .then((response) => response.data);
+});
 export const ProductPut = createAsyncThunk(
   "products/put",
   async ({ body, id }) => {
@@ -27,6 +24,19 @@ export const ProductPut = createAsyncThunk(
       .then((response) => console.log(response.data));
   }
 );
+
+export const UploadImage = createAsyncThunk("Product/upload", async (e) => {
+  const formData = new FormData();
+  formData.append("file", e.target.files[0]);
+  formData.append("upload_preset", "dat87nly");
+  try {
+    return await axios
+      .post("https://api.cloudinary.com/v1_1/dffclbjds/upload", formData)
+      .then((response) => response?.data.secure_url);
+  } catch (error) {
+    return error;
+  }
+});
 const ProductSlice = createSlice({
   name: "product",
   initialState: {
@@ -47,9 +57,15 @@ const ProductSlice = createSlice({
       loading: false,
     },
     productPut: {
-        Error : false,
-        Loading : false,
-        Success : false,
+      Error: false,
+      Loading: false,
+      Success: false,
+    },
+    uploadProjects: {
+      Error: false,
+      Loading: false,
+      Success: false,
+      data: "",
     },
   },
   extraReducers: {
@@ -97,18 +113,34 @@ const ProductSlice = createSlice({
       state.productDelete.Success = false;
     },
     // put
-    [ProductPut.pending]:(state , action) =>{
-        state.productPut.loading = true
+    [ProductPut.pending]: (state, action) => {
+      state.productPut.loading = true;
     },
-    [ProductPut.fulfilled]:(state , action) =>{
-        state.productPut.Error = false
-        state.productPut.Success = true
-        state.productPut.Loading = false
+    [ProductPut.fulfilled]: (state, action) => {
+      state.productPut.Error = false;
+      state.productPut.Success = true;
+      state.productPut.Loading = false;
     },
-    [ProductPut.rejected]:(state , action) =>{
-        state.productPut.Error = true
-        state.productPut.Success = false
-        state.productPut.Loading = false
+    [ProductPut.rejected]: (state, action) => {
+      state.productPut.Error = true;
+      state.productPut.Success = false;
+      state.productPut.Loading = false;
+    },
+
+    [UploadImage.pending]: (state, action) => {
+      state.uploadProjects.Loading = true;
+    },
+    [UploadImage.fulfilled]: (state, action) => {
+      state.uploadProjects.Error = false;
+      state.uploadProjects.Success = true;
+      state.uploadProjects.Loading = false;
+      state.uploadProjects.data = action.payload;
+      // console.log( );
+    },
+    [UploadImage.rejected]: (state, action) => {
+      state.uploadProjects.Error = true;
+      state.uploadProjects.Success = false;
+      state.uploadProjects.Loading = false;
     },
   },
 });

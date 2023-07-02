@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Sidebar from "../../components/sidebar";
 import ProductsComponent from "../../components/products";
+import HorizontalSidebar from "../../components/horizontal-sidebar";
 
 function Product() {
   const productGetState = useSelector((state) => state.product);
@@ -14,6 +15,12 @@ function Product() {
   useEffect(() => {
     dispatch(ProductGet());
   }, []);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
 
   if (productGetState.productDelete.Success === true) {
     window.location.reload();
@@ -21,16 +28,16 @@ function Product() {
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   return (
-    <Sidebar>
-      <WrapperContainer>
-        <HeaderTopCommon
-          title={"Продукт"}
-          onClick={handleOpen}
-          textBtn={"Добавить продукт"}
-        />
-        <ProductsComponent handleClose={handleClose} open={open} />
-      </WrapperContainer>
-    </Sidebar>
+    <HorizontalSidebar>
+        <WrapperContainer style={{marginTop: "112px"}}>
+          <HeaderTopCommon
+            title={"Продукт"}
+            onClick={showDrawer}
+            textBtn={"Добавить продукт"}
+          />
+          <ProductsComponent handleClose={onClose} open={open} />
+        </WrapperContainer>
+    </HorizontalSidebar>
   );
 }
 export default Product;

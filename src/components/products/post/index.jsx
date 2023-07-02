@@ -3,41 +3,66 @@ import CommonBtn from "../../common/CommonBtn";
 import ModalCommon from "../../common/Modal/Modal";
 import { Wrapper } from "./styled-index";
 import { useDispatch, useSelector } from "react-redux";
-import { ProductPost, ProductGet } from "../../../redux/products/index";
+import { ProductPost, ProductGet, UploadImage } from "../../../redux/products/index";
 import { CategoryGet } from "../../../redux/category/index";
 import { Row, Col } from "react-grid-system";
 import SelectCommon from "../../common/select/index";
+import DrawerCommon from '../../common/Drawer/index'
 import "./styles.css";
+import { Spin } from "antd";
 
-function ProductAddForm({ Open, HandleClose, setSelectId, selectId, setLoadings }) {
+function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
+
+  console.log(selectId)
+
   const dispatch = useDispatch();
   const titleUz = useRef();
   const titleRu = useRef();
+  const titleEn = useRef();
   const productTypeUz = useRef();
   const productTypeRu = useRef();
-  const completenessUz = useRef();
-  const completenessRu = useRef();
-  const purposeUz = useRef();
-  const purposeRu = useRef();
+  const productTypeEn = useRef();
+  const contentsUz = useRef();
+  const contentsRu = useRef();
+  const contentsEn = useRef();
+  const destinationUz = useRef();
+  const destinationRu = useRef();
+  const destinationEn = useRef();
   const colorUz = useRef();
   const colorRu = useRef();
+  const colorEn = useRef();
   const mainFabricUz = useRef();
   const mainFabricRu = useRef();
-  const compoundUz = useRef();
-  const compoundRu = useRef();
-  const guarantePeriodUz = useRef();
-  const guarantePeriodRu = useRef();
+  const mainFabricEn = useRef();
+  const compounds = useRef();
+  const storageUz = useRef();
+  const storageRu = useRef();
+  const storageEn = useRef();
+
+
 
   // category get
   const categoryGets = useSelector((state) => state.category.categoryGet.data);
+  
   useEffect(() => {
     dispatch(CategoryGet());
   }, []);
   // category get
 
+  const dataProject = useSelector((state) => state.product?.uploadProjects);
+
   useEffect(() => {
     dispatch(ProductGet());
   }, []);
+  const HandleChange = async (e) => {
+    await dispatch(UploadImage(e));
+  };
+
+  window.localStorage.setItem('categoryId', selectId)
+
+   const SelectChange = (e) => {
+      setSelectId(e)
+   }
 
   // product post
   const productPost = useSelector((state) => state.product);
@@ -47,27 +72,33 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId, setLoadings 
     const body = {
       title_uz: titleUz.current.value,
       title_ru: titleRu.current.value,
+      title_en: titleEn.current.value,
       product_type_uz: productTypeUz.current.value,
       product_type_ru: productTypeRu.current.value,
-      completeness_uz: completenessUz.current.value,
-      completeness_ru: completenessRu.current.value,
-      purpose_uz: purposeUz.current.value,
-      purpose_ru: purposeRu.current.value,
+      product_type_en: productTypeEn.current.value,
+      contents_uz: contentsUz.current.value,
+      contents_ru: contentsRu.current.value,
+      contents_en: contentsEn.current.value,
+      destination_uz: destinationUz.current.value,
+      destination_ru: destinationRu.current.value,
+      destination_en: destinationEn.current.value,
       color_uz: colorUz.current.value,
       color_ru: colorRu.current.value,
+      color_en: colorEn.current.value,
       main_fabric_uz: mainFabricUz.current.value,
       main_fabric_ru: mainFabricRu.current.value,
-      compound_uz: compoundUz.current.value,
-      compound_ru: compoundRu.current.value,
-      guarante_period_uz: guarantePeriodUz.current.value,
-      guarante_period_ru: guarantePeriodRu.current.value,
+      main_fabric_en: mainFabricEn.current.value,
+      Compound: compounds.current.value,
+      storage_uz: storageUz.current.value,
+      storage_ru: storageRu.current.value,
+      storage_en: storageEn.current.value,
       category: selectId,
+      image: dataProject.data
     };
 
     await dispatch(ProductPost(body));
     dispatch(ProductGet());
     HandleClose();
-    
   };
   // if (ProductGet.pending) {
   //   setLoadings(true)
@@ -79,154 +110,241 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId, setLoadings 
   categoryGets.map((elem) =>
     options.push({
       value: elem.id,
-      label: elem.category_name_ru,
+      label: elem.title_ru,
     })
   );
   // product post
   return (
-    <ModalCommon width={550} height={400} open={Open} handleClose={HandleClose}>
+    <DrawerCommon title='Добавить продукт' open={Open} onClose={HandleClose}>
       <>
         <Wrapper onSubmit={HandleSubmit}>
-          <h3>Добавить продукт</h3>
-
           <div className="input_wrap">
             <div className="scrool">
               <Row className="row">
                 <Col className="col" lg={12}>
+                  <h4>Выбрать категорию</h4>
                   <div className="selects">
                     <SelectCommon
-                      onChange={(e) => setSelectId(e)}
-                      placeholder="Select"
+                      onChange={SelectChange}
+                      placeholder="Выбрать"
                       options={options}
                     />
                   </div>
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={12}>
+                  <h4>Добавить фотографию</h4>
+                  {dataProject.Loading == true ? (
+                    <div className="spins">
+                      <Spin size="large" />
+                    </div>
+                  ) : (
+                    <>
+                      <input type="file" id="file" onChange={HandleChange} />
+                      <label for="file" class="custom-file-upload">
+                        <span className="span-download">
+                          <ion-icon name="cloud-download-outline"></ion-icon>
+                        </span>
+                      </label>
+                    </>
+                  )}
+
+                </Col>
+                <Col className="col" lg={4}>
+                  <h4>Имя продукта</h4>
                   <input
                     type="text"
-                    placeholder="Имя продукта узб..."
+                    placeholder="узбекский"
                     required
                     ref={titleUz}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Имя продукта русский..."
+                    placeholder="русский"
                     required
                     ref={titleRu}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Вид изделия узб..."
+                    placeholder="английский"
+                    required
+                    ref={titleEn}
+                  />
+                </Col>
+                <Col className="col" lg={4}>
+                  <h4>Вид изделия</h4>
+                  <input
+                    type="text"
+                    placeholder="узбекский"
                     required
                     ref={productTypeUz}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Вид изделия русский..."
+                    placeholder="русский"
                     required
                     ref={productTypeRu}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Комплектность узб..."
+                    placeholder="английский"
                     required
-                    ref={completenessUz}
+                    ref={productTypeEn}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>Комплектность</h4>
                   <input
                     type="text"
-                    placeholder="Комплектность русский..."
+                    placeholder="узбекский"
                     required
-                    ref={completenessRu}
+                    ref={contentsUz}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Назначение узб..."
+                    placeholder="русский"
                     required
-                    ref={purposeUz}
+                    ref={contentsRu}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Назначение русский..."
+                    placeholder="английский"
                     required
-                    ref={purposeRu}
+                    ref={contentsEn}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>Назначение</h4>
                   <input
                     type="text"
-                    placeholder="Цвет узб..."
+                    placeholder="узбекский"
+                    required
+                    ref={destinationUz}
+                  />
+                </Col>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
+                  <input
+                    type="text"
+                    placeholder="русский"
+                    required
+                    ref={destinationRu}
+                  />
+                </Col>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
+                  <input
+                    type="text"
+                    placeholder="английский"
+                    required
+                    ref={destinationEn}
+                  />
+                </Col>
+                <Col className="col" lg={4}>
+                  <h4>Цвет</h4>
+                  <input
+                    type="text"
+                    placeholder="узбекский"
                     required
                     ref={colorUz}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Цвет русский..."
+                    placeholder="русский"
                     required
                     ref={colorRu}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Основная ткань узб..."
+                    placeholder="английский"
+                    required
+                    ref={colorEn}
+                  />
+                </Col>
+                <Col className="col" lg={4}>
+                  <h4>Основная ткань</h4>
+                  <input
+                    type="text"
+                    placeholder="узбекский"
                     required
                     ref={mainFabricUz}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Основная ткань русский..."
+                    placeholder="русский"
                     required
                     ref={mainFabricRu}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Состав узб..."
+                    placeholder="английский"
                     required
-                    ref={compoundUz}
+                    ref={mainFabricEn}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={12}>
+                  <h4>Состав</h4>
                   <input
                     type="text"
-                    placeholder="Состав русский..."
+                    placeholder="печатание..."
                     required
-                    ref={compoundRu}
+                    ref={compounds}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>Гарантийный срок</h4>
                   <input
                     type="text"
-                    placeholder="Гарантийный срок узб..."
+                    placeholder="узбекский"
                     required
-                    ref={guarantePeriodUz}
+                    ref={storageUz}
                   />
                 </Col>
-                <Col className="col" lg={6}>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
                   <input
                     type="text"
-                    placeholder="Гарантийный срок русский..."
+                    placeholder="русский"
                     required
-                    ref={guarantePeriodRu}
+                    ref={storageRu}
+                  />
+                </Col>
+                <Col className="col" lg={4}>
+                  <h4>*</h4>
+                  <input
+                    type="text"
+                    placeholder="английский"
+                    required
+                    ref={storageEn}
                   />
                 </Col>
               </Row>
@@ -244,7 +362,8 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId, setLoadings 
           </div>
         </Wrapper>
       </>
-    </ModalCommon>
+    </DrawerCommon>
+
   );
 }
 

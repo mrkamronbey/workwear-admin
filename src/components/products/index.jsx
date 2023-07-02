@@ -26,7 +26,9 @@ function ProductsComponent({ open, handleClose }) {
   }, []);
 
   const [openPut, setOpenPut] = useState(false);
-  const handleClosePut = () => setOpenPut(false);
+  const onClosePut = () => {
+    setOpenPut(false);
+  };
   const handlePutModal = (e) => {
     setProductId(e.currentTarget.id);
     setOpenPut(true);
@@ -47,14 +49,14 @@ function ProductsComponent({ open, handleClose }) {
         setLoadings={setLoadings}
       />
       <TableAdd
+        HandleDelete={HandleDelete}
         loadings={loadings}
-        onClickDelete={handleDeleteModal}
         onClickPut={handlePutModal}
         setLoadings={setLoadings}
+        selectId={selectId}
       />
       <Delete
         productId={productId}
-        HandleDelete={HandleDelete}
         openDelete={openDelete}
         handleCloseDelete={handleCloseDelete}
       />
@@ -64,7 +66,7 @@ function ProductsComponent({ open, handleClose }) {
         selectId={selectId}
         put_id={productId}
         openPut={openPut}
-        handleClosePut={handleClosePut}
+        handleClosePut={onClosePut}
       />
     </>
   );

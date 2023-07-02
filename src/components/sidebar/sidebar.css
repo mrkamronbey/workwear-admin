@@ -56,11 +56,25 @@
   display: flex;
   align-items: center;
 }
-.logos > img {
+
+.logo_wrapp{
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  /* background-color: #fff; */
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px !important;
+}
+
+
+.logo_wrapp > img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+  width: 164px;
 }
 .ant-menu-item .ant-menu-item-selected {
   background: #03544c !important;
@@ -253,7 +267,7 @@ a {
 }
 
 .ant-layout-sider-children {
-  background: #03544c !important;
+  background: #1fab8a !important;
   border-radius: 20px;
 }
 

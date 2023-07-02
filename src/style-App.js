@@ -4,6 +4,9 @@ export const Main = styled.div`
   display: flex;
 `;
 export const GlobalStyle = createGlobalStyle`
+*{
+  font-family: 'Montserrat', sans-serif !important;
+}
   html{
     scroll-behavior:smooth
     }
@@ -43,5 +46,6 @@ export const WrapperContainer = styled.div`
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   height: 100%;
-  padding: 30px;
+  padding: 15px;
+  /* margin-top: 95px; */
 `;

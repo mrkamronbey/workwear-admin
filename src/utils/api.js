@@ -1,1 +1,1 @@
-export const API_URL = "https://api.topstylegroup.uz";
+export const API_URL = "https://api.spetcodejdauz.uz";

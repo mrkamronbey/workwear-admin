@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Sidebar from "../../components/sidebar";
 import AdminAddComponent from "../../components/admin_add";
+import { motion } from "framer-motion";
+import HorizontalSidebar from "../../components/horizontal-sidebar";
 function AddAdmin() {
   const adminGetState = useSelector((state) => state.adminadd);
   const [open, setOpen] = useState(false);
@@ -21,7 +23,7 @@ function AddAdmin() {
   const handleOpen = () => setOpen(true);
   return (
     <Sidebar>
-      <WrapperContainer>
+      <WrapperContainer style={{marginTop: "112px"}}>
         <HeaderTopCommon
           title={"Админ"}
           onClick={handleOpen}
@@ -29,6 +31,7 @@ function AddAdmin() {
         />
         <AdminAddComponent handleClose={handleClose} open={open} />
       </WrapperContainer>
+
     </Sidebar>
   );
 }

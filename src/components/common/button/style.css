@@ -46,8 +46,8 @@
 .btn-anime:hover::before {
   bottom: -7px;
   right: -5px;
-  width: 110%;
-  height: 110%;
+  width: 100%;
+  height: 100%;
 }
 .btn-anime:hover::after {
   border-radius: 10px;

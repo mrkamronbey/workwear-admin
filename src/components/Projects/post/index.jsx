@@ -27,7 +27,7 @@ function ProjectAddForm({ Open, HandleClose, setSelectId, selectId }) {
     await dispatch(UploadImage(e));
   };
 
- 
+
 
   const HandleSubmit = async (e) => {
     e.preventDefault();

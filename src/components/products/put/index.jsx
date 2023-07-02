@@ -5,9 +5,11 @@ import CommonBtn from "../../common/CommonBtn";
 import "./styles.css";
 import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ProductPut, ProductGet } from "../../../redux/products";
+import { ProductPut, ProductGet, UploadImage } from "../../../redux/products";
 import { CategoryGet } from "../../../redux/category/index";
 import SelectCommon from "../../common/select/index";
+import DraverCommon from "../../common/Drawer";
+import { Spin } from "antd";
 
 function Put({
   openPut,
@@ -21,20 +23,26 @@ function Put({
   const dispatch = useDispatch();
   const titleUz = useRef();
   const titleRu = useRef();
+  const titleEn = useRef();
   const productTypeUz = useRef();
   const productTypeRu = useRef();
-  const completenessUz = useRef();
-  const completenessRu = useRef();
-  const purposeUz = useRef();
-  const purposeRu = useRef();
+  const productTypeEn = useRef();
+  const contentsUz = useRef();
+  const contentsRu = useRef();
+  const contentsEn = useRef();
+  const destinationUz = useRef();
+  const destinationRu = useRef();
+  const destinationEn = useRef();
   const colorUz = useRef();
   const colorRu = useRef();
+  const colorEn = useRef();
   const mainFabricUz = useRef();
   const mainFabricRu = useRef();
-  const compoundUz = useRef();
-  const compoundRu = useRef();
-  const guarantePeriodUz = useRef();
-  const guarantePeriodRu = useRef();
+  const mainFabricEn = useRef();
+  const compounds = useRef();
+  const storageUz = useRef();
+  const storageRu = useRef();
+  const storageEn = useRef();
 
   const productPut = useSelector((state) => state.product);
   // product get
@@ -45,6 +53,7 @@ function Put({
   // product get
   // category get
   const categoryGets = useSelector((state) => state.category.categoryGet.data);
+  const dataProject = useSelector((state) => state.product?.uploadProjects);
   useEffect(() => {
     dispatch(CategoryGet());
   }, []);
@@ -54,11 +63,15 @@ function Put({
     dispatch(ProductGet());
   }, []);
 
+  const HandleChange = async (e) => {
+    await dispatch(UploadImage(e));
+  };
+
   const options = [];
   categoryGets.map((elem) =>
     options.push({
       value: elem.id,
-      label: elem.category_name_ru,
+      label: elem.title_ru,
     })
   );
 
@@ -67,21 +80,28 @@ function Put({
     const body = {
       title_uz: titleUz.current.value,
       title_ru: titleRu.current.value,
+      title_en: titleEn.current.value,
       product_type_uz: productTypeUz.current.value,
       product_type_ru: productTypeRu.current.value,
-      completeness_uz: completenessUz.current.value,
-      completeness_ru: completenessRu.current.value,
-      purpose_uz: purposeUz.current.value,
-      purpose_ru: purposeRu.current.value,
+      product_type_en: productTypeEn.current.value,
+      contents_uz: contentsUz.current.value,
+      contents_ru: contentsRu.current.value,
+      contents_en: contentsEn.current.value,
+      destination_uz: destinationUz.current.value,
+      destination_ru: destinationRu.current.value,
+      destination_en: destinationEn.current.value,
       color_uz: colorUz.current.value,
       color_ru: colorRu.current.value,
+      color_en: colorEn.current.value,
       main_fabric_uz: mainFabricUz.current.value,
       main_fabric_ru: mainFabricRu.current.value,
-      compound_uz: compoundUz.current.value,
-      compound_ru: compoundRu.current.value,
-      guarante_period_uz: guarantePeriodUz.current.value,
-      guarante_period_ru: guarantePeriodRu.current.value,
+      main_fabric_en: mainFabricEn.current.value,
+      Compound: compounds.current.value,
+      storage_uz: storageUz.current.value,
+      storage_ru: storageRu.current.value,
+      storage_en: storageEn.current.value,
       category: selectId,
+      image: dataProject.data
     };
 
     await dispatch(ProductPut({ body, id: ids }));
@@ -97,162 +117,239 @@ function Put({
   // console.log("put_id find", ids ? findData : null);
   return (
     <>
-      <ModalCommon
-        width={600}
-        height={350}
-        open={openPut}
-        handleClose={handleClosePut}
-      >
-        <Wrapper onSubmit={HandleSubmit}>
-          <h3>Изменить продукт</h3>
-          <div className="input_wrap">
-            <div className="scrool">
-              {productGets.map((elem) =>
-                elem.id == put_id ? (
-                  <>
-                    <Row className="row">
-                      <Col className="col" lg={12}>
-                        <div className="selects">
-                          <SelectCommon
-                            onChange={(e) => setSelectId(e)}
-                            placeholder="Select"
-                            options={options}
+      <DraverCommon title='Изменить продукт' open={openPut} onClose={handleClosePut}>
+        <>
+          <Wrapper onSubmit={HandleSubmit}>
+            <div className="input_wrap">
+              <div className="scrool">
+                {productGets.map((elem) =>
+                  elem.id == put_id ? (
+                    <>
+                      <Row className="row">
+                        <Col className="col" lg={12}>
+                          <h4>Выбрать категорию</h4>
+                          <div className="selects">
+                            <SelectCommon
+                              onChange={(e) => setSelectId(e)}
+                              placeholder="Выбрать"
+                              options={options}
+                            />
+                          </div>
+                        </Col>
+                        <Col className="col" lg={12}>
+                          <h4>Добавить фотографию</h4>
+                          {dataProject.Loading == true ? (
+                            <div className="spins">
+                              <Spin size="large" />
+                            </div>
+                          ) : (
+                            <>
+                              <input type="file" id="file" onChange={HandleChange} />
+                              <label for="file" class="custom-file-upload">
+                                <span className="span-download">
+                                  <ion-icon name="cloud-download-outline"></ion-icon>
+                                </span>
+                              </label>
+                            </>
+                          )}
+
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>Имя продукта</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.title_uz}
+                            ref={titleUz}
                           />
-                        </div>
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.title_uz}
-                          ref={titleUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.title_ru}
-                          ref={titleRu}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                        
-                          type="text"
-                          defaultValue={elem.product_type_uz}
-                          ref={productTypeUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.product_type_ru}
-                          ref={productTypeRu}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.completeness_uz}
-                          ref={completenessUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.completeness_ru}
-                          ref={completenessRu}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.purpose_uz}
-                          ref={purposeUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.purpose_ru}
-                          ref={purposeRu}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.color_uz}
-                          ref={colorUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.color_ru}
-                          ref={colorRu}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.main_fabric_uz}
-                          ref={mainFabricUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.main_fabric_ru}
-                          ref={mainFabricRu}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.compound_uz}
-                          ref={compoundUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.compound_ru}
-                          ref={compoundRu}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.guarante_period_uz}
-                          ref={guarantePeriodUz}
-                        />
-                      </Col>
-                      <Col className="col" lg={6}>
-                        <input
-                          type="text"
-                          defaultValue={elem.guarante_period_ru}
-                          ref={guarantePeriodRu}
-                        />
-                      </Col>
-                    </Row>
-                  </>
-                ) : null
-              )}
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.title_ru}
+                            ref={titleRu}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.title_en}
+                            ref={titleEn}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>Вид изделия</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.product_type_uz}
+                            ref={productTypeUz}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.product_type_ru}
+                            ref={productTypeRu}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.product_type_en}
+                            ref={productTypeEn}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>Комплектность</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.contents_uz}
+                            ref={contentsUz}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.contents_ru}
+                            ref={contentsRu}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.contents_en}
+                            ref={contentsEn}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>Назначение</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.destination_uz}
+                            ref={destinationUz}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.destination_ru}
+                            ref={destinationRu}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.destination_en}
+                            ref={destinationEn}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>Цвет</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.color_uz}
+                            ref={colorUz}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.color_ru}
+                            ref={colorRu}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.color_en}
+                            ref={colorEn}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>Основная ткань</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.main_fabric_uz}
+                            ref={mainFabricUz}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.main_fabric_ru}
+                            ref={mainFabricRu}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.main_fabric_en}
+                            ref={mainFabricEn}
+                          />
+                        </Col>
+                        <Col className="col" lg={12}>
+                          <h4>Состав</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.Compound}
+                            ref={compounds}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>Гарантийный срок</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.storage_uz}
+                            ref={storageUz}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.storage_ru}
+                            ref={storageRu}
+                          />
+                        </Col>
+                        <Col className="col" lg={4}>
+                          <h4>*</h4>
+                          <input
+                            type="text"
+                            defaultValue={elem.storage_en}
+                            ref={storageEn}
+                          />
+                        </Col>
+                      </Row>
+                    </>
+                  ) : null
+                )}
 
-
-              <CommonBtn
-                type="submit"
-                style={{
-                  margin: "20px auto 0 auto",
-                  padding: "12px 40px",
-                  border: "2px solid #fff",
-                }}
-              >
-                Изменить
-              </CommonBtn>
+                <CommonBtn
+                  type="submit"
+                  style={{
+                    margin: "20px auto 0 auto",
+                    padding: "12px 40px",
+                    border: "2px solid #fff",
+                  }}
+                >
+                  Добавить
+                </CommonBtn>
+              </div>
             </div>
-          </div>
-        </Wrapper>
-      </ModalCommon>
+          </Wrapper>
+        </>
+      </DraverCommon>
     </>
   );
 }

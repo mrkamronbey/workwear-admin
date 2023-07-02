@@ -27,6 +27,19 @@ export const CategoryPut = createAsyncThunk(
       .then((response) => console.log(response.data));
   }
 );
+
+export const UploadCategoryImage = createAsyncThunk("CategoryImg/upload", async (e) => {
+  const formData = new FormData();
+  formData.append("file", e.target.files[0]);
+  formData.append("upload_preset", "dat87nly");
+  try {
+    return await axios
+      .post("https://api.cloudinary.com/v1_1/dffclbjds/upload", formData)
+      .then((response) => response?.data.secure_url);
+  } catch (error) {
+    return error;
+  }
+});
 const CategorySlice = createSlice({
   name: "admin",
   initialState: {
@@ -47,9 +60,15 @@ const CategorySlice = createSlice({
       loading: false,
     },
     categoryPut: {
-        Error : false,
-        Loading : false,
-        Success : false,
+      Error: false,
+      Loading: false,
+      Success: false,
+    },
+    uploadCategoryImage: {
+      Error: false,
+      Loading: false,
+      Success: false,
+      data: "",
     },
   },
   extraReducers: {
@@ -97,19 +116,35 @@ const CategorySlice = createSlice({
       state.categoryDelete.Success = false;
     },
     // put
-    
-    [CategoryPut.pending]:(state , action) =>{
-        state.categoryPut.loading = true
+
+    [CategoryPut.pending]: (state, action) => {
+      state.categoryPut.loading = true;
     },
-    [CategoryPut.fulfilled]:(state , action) =>{
-        state.categoryPut.Error = false
-        state.categoryPut.Success = true
-        state.categoryPut.Loading = false
+    [CategoryPut.fulfilled]: (state, action) => {
+      state.categoryPut.Error = false;
+      state.categoryPut.Success = true;
+      state.categoryPut.Loading = false;
     },
-    [CategoryPut.rejected]:(state , action) =>{
-        state.categoryPut.Error = true
-        state.categoryPut.Success = false
-        state.categoryPut.Loading = false
+    [CategoryPut.rejected]: (state, action) => {
+      state.categoryPut.Error = true;
+      state.categoryPut.Success = false;
+      state.categoryPut.Loading = false;
+    },
+
+    [UploadCategoryImage.pending]: (state, action) => {
+      state.uploadCategoryImage.Loading = true;
+    },
+    [UploadCategoryImage.fulfilled]: (state, action) => {
+      state.uploadCategoryImage.Error = false;
+      state.uploadCategoryImage.Success = true;
+      state.uploadCategoryImage.Loading = false;
+      state.uploadCategoryImage.data = action.payload;
+      // console.log( );
+    },
+    [UploadCategoryImage.rejected]: (state, action) => {
+      state.uploadCategoryImage.Error = true;
+      state.uploadCategoryImage.Success = false;
+      state.uploadCategoryImage.Loading = false;
     },
   },
 });

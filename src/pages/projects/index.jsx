@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { GetProjects } from "../../redux/projects";
 import Sidebar from "../../components/sidebar";
 import ProjectsComponent from "../../components/Projects";
+import { motion } from "framer-motion";
 function Projects() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -16,14 +17,14 @@ function Projects() {
   const handleOpen = () => setOpen(true);
   return (
     <Sidebar>
-      <WrapperContainer>
-        <HeaderTopCommon
-          title={"Изображение"}
-          onClick={handleOpen}
-          textBtn={"Изображение добавить"}
-        />
-        <ProjectsComponent handleClose={handleClose} open={open} />
-      </WrapperContainer>
+        <WrapperContainer>
+          <HeaderTopCommon
+            title={"Изображение"}
+            onClick={handleOpen}
+            textBtn={"Изображение добавить"}
+          />
+          <ProjectsComponent handleClose={handleClose} open={open} />
+        </WrapperContainer>
     </Sidebar>
   );
 }
