@@ -3,7 +3,7 @@ import "./styles.css";
 import TableCommon from "../../common/table";
 import { useSelector } from "react-redux";
 import { Image } from 'antd';
-import { Popover, Space } from 'antd';
+import { Popover, Tooltip, Space } from 'antd';
 
 
 
@@ -14,19 +14,97 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
   rows.map((elem, index) => {
     data.push({
       data: index + 1,
-      key: elem.id,
-      Темаузб: elem.title_uz,
-      Темарусский: elem.title_ru,
-      Темаен: elem.title_en,
-      Описаниеuz: elem.description_uz,
-      Описаниеru: elem.description_ru,
-      Описаниеen: elem.description_en,
-      Ссылка: elem.link,
       Фото: <Image
-        width={120}
-        height={100}
+        width={60}
+        height="100%"
+        style={{ aspectRatio: "1 / 1", borderRadius: "20px", objectFit: "cover" }}
         src={elem.image}
       />,
+      key: elem.id,
+      Темаузб: (
+        <Tooltip overlayInnerStyle={{
+          width: "500px", height: "100%", borderRadius: "20px",
+          padding: "15px"
+        }} color="#1fab8a" title={
+          <div className="tooltip_box">
+            <span><span>{elem.title_uz}</span></span>
+          </div>
+        }>
+          <span className="curson">{elem.title_uz.slice(0, 22)}...</span>
+        </Tooltip>
+      ),
+      Темарусский: (
+        <Tooltip overlayInnerStyle={{
+          width: "500px", height: "100%", borderRadius: "20px",
+          padding: "15px"
+        }} color="#1fab8a" title={
+          <div className="tooltip_box">
+            <span><span>{elem.title_ru}</span></span>
+          </div>
+        }>
+          <span className="curson">{elem.title_ru.slice(0, 22)}...</span>
+        </Tooltip>
+      ),
+      Темаен: (
+        <Tooltip overlayInnerStyle={{
+          width: "500px", height: "100%", borderRadius: "20px",
+          padding: "15px"
+        }} color="#1fab8a" title={
+          <div className="tooltip_box">
+            <span><span>{elem.title_en}</span></span>
+          </div>
+        }>
+          <span className="curson">{elem.title_en.slice(0, 22)}...</span>
+        </Tooltip>
+      ),
+      Описаниеuz: (
+        <Tooltip overlayInnerStyle={{
+          width: "500px", height: "100%", borderRadius: "20px",
+          padding: "15px"
+        }} color="#1fab8a" title={
+          <div className="tooltip_box">
+            <span><span>{elem.description_uz}</span></span>
+          </div>
+        }>
+          <span className="curson">
+            {elem.description_uz.slice(0, 22)}...
+          </span>
+        </Tooltip>
+      ),
+      Описаниеru: (
+        <Tooltip overlayInnerStyle={{
+          width: "500px", height: "100%", borderRadius: "20px",
+          padding: "15px"
+        }} color="#1fab8a" title={
+          <div className="tooltip_box">
+            <span><span>{elem.description_ru}</span></span>
+          </div>
+        }>
+          <span className="curson">{elem.description_ru.slice(0, 22)}...</span>
+        </Tooltip>
+      ),
+      Описаниеen: (
+        <Tooltip overlayInnerStyle={{
+          width: "500px", height: "100%", borderRadius: "20px",
+          padding: "15px"
+        }} color="#1fab8a" title={
+          <div className="tooltip_box">
+            <span><span>{elem.description_en}</span></span>
+          </div>
+        }>
+          <span className="curson">{elem.description_en.slice(0, 22)}...</span>
+        </Tooltip>
+      ),
+      Ссылка: (
+        <Tooltip placement="left" color="#1fab8a" title={
+          <div className="tooltip_box">
+            < a style={{ color: "#fff" }} href={elem.link} > {elem.link}</ a>
+          </div>
+        }>
+          <span className="curson">{elem.link.slice(0, 20)}...</span>
+        </Tooltip>
+      ),
+
       Действие: (
         <div className="boxx">
           <div className="btn-wraps">
@@ -81,6 +159,12 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
       align: "center",
     },
     {
+      title: "Фото",
+      dataIndex: "Фото",
+      key: "Фото",
+      align: "center",
+    },
+    {
       title: "Тема узб",
       dataIndex: "Темаузб",
       key: "Темаузб",
@@ -114,12 +198,6 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
       title: "Ссылка",
       dataIndex: "Ссылка",
       key: "Ссылка"
-    },
-    {
-      title: "Фото",
-      dataIndex: "Фото",
-      key: "Фото",
-      align: "center",
     },
     {
       title: "Действие",

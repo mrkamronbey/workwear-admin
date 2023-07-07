@@ -10,13 +10,12 @@ const DraverCommon = ({ title, onClose, open, children, addBtn }) => {
             <Drawer
                 title={title}
                 placement="right"
-                width={1000}
+                width={1200}
                 onClose={onClose}
                 open={open}
                 extra={
                     <Space>
-                        <Button danger onClick={onClose}>Отменить</Button>
-
+                        <Button style={{borderRadius: "50px" }} danger onClick={onClose}>Отменить</Button>
                     </Space>
                 }
             >

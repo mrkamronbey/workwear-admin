@@ -115,8 +115,20 @@
   font-weight: bold;
 }
 
+
 .boxx {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.ant-image-mask-info{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0;
+}
+
+.ant-image-mask-info > .anticon-eye{
+  margin: 0 !important;
 }

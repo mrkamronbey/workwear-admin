@@ -30,11 +30,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 100dvh;
-  width: 40%;
+  width: 50%;
 }
 .login_right_wrap {
   height: 100dvh;
-  width: 60%;
+  width: 50%;
   padding: 0 100px;
   display: flex;
   align-items: center;
@@ -228,6 +228,7 @@
   font-size: 16px !important;
   line-height: 19px !important;
   color: #000 !important;
+  padding: 0 !important;
 }
 
 .ant-input-affix-wrapper:hover {

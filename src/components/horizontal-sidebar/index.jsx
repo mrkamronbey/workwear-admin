@@ -30,8 +30,6 @@ import { adminGet } from "../../redux/admin_add/index";
 const { Header, Content, Footer } = Layout;
 
 
-
-
 const HorizontalSidebar = ({ children, setIsChecked }) => {
   const emailSave = window.localStorage.getItem('emails')
   const text = <span>Выйти</span>;
@@ -55,9 +53,10 @@ const HorizontalSidebar = ({ children, setIsChecked }) => {
     }, "1500");
   };
 
-  const onChange = (checked) => {
-    setIsChecked(checked);
-    window.localStorage.setItem('checked', checked)
+  const onChange = async (checked) => {
+    window.localStorage.setItem('checked', 'true')
+    window.location.reload()
+
   };
 
 
@@ -65,16 +64,21 @@ const HorizontalSidebar = ({ children, setIsChecked }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  // const items = [
-  //   {
-  //     label: ,
-  //     key: '0',
-  //   },
-  //   {
-  //     label: <div className="switch_wrapp"> <span>Боковая панель</span> <Switch onChange={onChange} /></div>,
-  //     key: '1',
-  //   },
-  // ];
+  const items = [
+    {
+      label: <Tooltip title={text}>
+        <button className="tool_btns" onClick={HandleLogout}>
+          <span>Выйти</span>
+          <LoginOutlined />
+        </button>
+      </Tooltip>,
+      key: '0',
+    },
+    {
+      label: <div className="switch_wrapp"> <span>Боковая панель</span> <Switch onChange={onChange} /></div>,
+      key: '1',
+    },
+  ];
 
   return (
     <Layout className="layout hori_sidebar">
@@ -150,7 +154,7 @@ const HorizontalSidebar = ({ children, setIsChecked }) => {
           ]}
         />
         <div className="profile">
-          {/* <Dropdown
+          <Dropdown
             style={{ marginLeft: '10px' }}
             menu={{
               items,
@@ -161,10 +165,10 @@ const HorizontalSidebar = ({ children, setIsChecked }) => {
               <Space>
 
                 <SettingOutlined />
-                <span className="drop_span">Setting</span>
+                <span className="drop_span">Настройки</span>
               </Space>
             </a>
-          </Dropdown> */}
+          </Dropdown>
           <UserOutlined className="user-icon" />
           <div className="profile-right">
             {filterData.map((elem) => (
@@ -174,13 +178,6 @@ const HorizontalSidebar = ({ children, setIsChecked }) => {
               </>
             ))}
           </div>
-          <Tooltip title={text}>
-            <button className="tool_btn" onClick={HandleLogout}>
-              <LoginOutlined />
-              <span> Выйти</span>
-            </button>
-          </Tooltip>
-
         </div>
       </Header>
       <Content

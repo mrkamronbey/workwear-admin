@@ -1,16 +1,19 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { RouterData } from "./index-data";
 import logo from "../assets/image/logocircle.png";
+import Cookies from "universal-cookie";
+
 import "./styles.css";
-// const Login = lazy(() => import("../pages/login/index"));
-// const AddAdmin = lazy(() => import("../pages/add_admin/index"));
-// const Contact = lazy(() => import("../pages/contact/index"));
-// const Category = lazy(() => import("../pages/category/index"));
-// const Product = lazy(() => import("../pages/products/index"));
-// const News = lazy(() => import("../pages/news/index"));
+const Login = lazy(() => import("../pages/login/index"));
+const AddAdmin = lazy(() => import("../pages/add_admin/index"));
+const Contact = lazy(() => import("../pages/contact/index"));
+const Category = lazy(() => import("../pages/category/index"));
+const Product = lazy(() => import("../pages/products/index"));
+const News = lazy(() => import("../pages/news/index"));
 
 function RouterComponent() {
+  const cookie = new Cookies();
   return (
     <>
       <div className="big_wrap">

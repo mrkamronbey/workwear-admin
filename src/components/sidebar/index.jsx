@@ -28,7 +28,7 @@ import HorizontalSidebar from "../horizontal-sidebar";
 const { Header, Sider, Footer, Content } = Layout;
 
 const Sidebar = ({ children }) => {
-  const [isChecked, setIsChecked] = useState(window.localStorage.getItem('checked'))
+  const [isChecked, setIsChecked] = useState('false')
   // const isChecked = 
   console.log("bu herticaldan keldi", isChecked)
   // const emailSave = window.localStorage.getItem('emails')
@@ -57,13 +57,11 @@ const Sidebar = ({ children }) => {
   // } = theme.useToken();
 
 
-
+  console.log( "okey" )
   return (
     <>
 
-      {
-        isChecked == true ? <VerticalSidebar setIsChecked={setIsChecked} children={children} /> : <HorizontalSidebar setIsChecked={setIsChecked} children={children} />
-      }
+
 
     </>
     // <Layout style={{ height: "100vh", position: "relative" }}>

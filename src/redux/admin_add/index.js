@@ -3,19 +3,19 @@ import axios from "axios";
 
 
 export const adminAdd = createAsyncThunk('admin/Add' , async(body) =>{
-     return await axios.post("https://x8ki-letl-twmt.n7.xano.io/api:1p9FGSWt/auth/signup" , body)
+     return await axios.post("https://x8ki-letl-twmt.n7.xano.io/api:84q3nPOe/user" , body)
     .then(res => res)
 })
-export const adminGet = createAsyncThunk("admin/Get" ,  () =>{
-    return axios.get("https://x8ki-letl-twmt.n7.xano.io/api:1p9FGSWt/user")
+export const adminGet = createAsyncThunk("admin/Get",async () =>{
+    return axios.get("https://x8ki-letl-twmt.n7.xano.io/api:84q3nPOe/user")
     .then(response => response.data)
 })
 export const adminPut = createAsyncThunk("admin/Delete", async ({body, id})=>{
-    return await axios.put(`https://x8ki-letl-twmt.n7.xano.io/api:1p9FGSWt/user/${id}`, body)
+    return await axios.put(`https://x8ki-letl-twmt.n7.xano.io/api:84q3nPOe/user/${id}`, body)
     .then(res => res)
 })
 export const adminDelete = createAsyncThunk("admin/Delete", async (id)=>{
-    return await axios.delete(`https://x8ki-letl-twmt.n7.xano.io/api:1p9FGSWt/user/${id}`)
+    return await axios.delete(`https://x8ki-letl-twmt.n7.xano.io/api:84q3nPOe/user/${id}`)
     .then(res => res)
 })
 const AdminSlice = createSlice({

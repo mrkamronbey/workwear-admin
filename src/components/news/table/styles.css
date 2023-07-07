@@ -5,6 +5,10 @@
   justify-content: space-around;
 }
 
+.curson {
+  cursor: pointer;
+}
+
 .btn-wrap > button,
 .btn-wraps > button {
   border: none;
@@ -115,8 +119,56 @@
   font-weight: bold;
 }
 
+.ant-table-filter-column {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.ant-dropdown-trigger {
+  /* width: 30px !important;
+  height: 30px !important; */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ant-dropdown-trigger > .anticon-search {
+  color: rgb(31, 171, 138) !important;
+  font-size: 14px !important;
+}
+
+/* .tooltip_box{
+  width: 440px !important;
+} */
+
+.tooltip_box > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tooltip_box > span > span {
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
 .boxx {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.ant-image-mask-info{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0;
+}
+
+.ant-image-mask-info > .anticon-eye{
+  margin: 0 !important;
 }

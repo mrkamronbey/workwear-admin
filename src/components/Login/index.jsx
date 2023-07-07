@@ -7,28 +7,23 @@ import { useNavigate } from "react-router-dom";
 import { GetProjects } from "../../redux/projects";
 import { EyeTwoTone, EyeInvisibleOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
-import Sidebar from "../sidebar";
 import "./styles.css";
 import CommonButton from "../../components/common/button/index";
-import login1 from "../../assets/image/loginimg.png";
-import login2 from "../../assets/image/loginimg1.png";
 import logo from "../../assets/image/logos.png";
-import { motion } from "framer-motion";
+import InputCommon from "../common/input";
 
 const LoginComponent = () => {
-  // const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [passwordRef, setPasswordRef] = useState();
-
-  const EmailUserf = useRef();
+  const [emailRef, setEmailRef] = useState()
   const dispatch = useDispatch();
-  // console.log(EmailUserf.current.value)
   const admin = useSelector((state) => state);
   const navigate = useNavigate();
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    const email = EmailUserf.current.value;
+    const email = emailRef;
     const password = passwordRef;
     window.localStorage.setItem('emails', email)
+    window.localStorage.setItem('pass', password)
     await dispatch(adminAuth({ email, password }));
     dispatch(GetProjects());
   };
@@ -36,21 +31,12 @@ const LoginComponent = () => {
     navigate("/adminadd");
     window.location.reload();
   }
+  
   return (
     <>
       <GlobalStyleLogin />
       <div className="login_section">
         <Wrapper>
-          {/* <div className="wrappp">
-            <div className="left">
-              <img src={login2} alt="" />
-            </div>
-            <div className="right">
-              <img src={login1} alt="" />
-            </div>
-          </div> */}
-
-
           <div className="login_wrapper">
             <div className="login_left_wrap">
               <div className="logo_box">
@@ -65,13 +51,11 @@ const LoginComponent = () => {
                 <form onSubmit={HandleSubmit}>
                   <div className="user-box">
                     <label htmlFor="email">Эл. почта</label>
-                    <input
-                      id="email"
+                    <InputCommon
                       placeholder="example@gmail.com"
                       type="email"
-                      name=""
                       required
-                      ref={EmailUserf}
+                      onChange={(e) => setEmailRef(e.currentTarget.value)}
                     />
                   </div>
                   <div className="user-box">
@@ -79,6 +63,7 @@ const LoginComponent = () => {
                     <Input.Password
                       onChange={(e) => setPasswordRef(e.currentTarget.value)}
                       required
+                      style={{padding: "0"}}
                       placeholder="Пароль"
                       iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />

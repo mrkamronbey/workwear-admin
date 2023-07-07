@@ -31,11 +31,6 @@ export default function TableAdd({ onClickDelete, HandleDelete }) {
     return [day, month, year].join(".");
   };
 
-
-
-
-
-
   const data = [];
   ContactGetState.map((elem, index) => {
     data.push({

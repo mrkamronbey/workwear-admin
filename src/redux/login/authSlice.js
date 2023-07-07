@@ -9,7 +9,7 @@ let initialState = {
     loading : false
 }
 export let adminAuth = createAsyncThunk('admin' , async(body) => {
-    const res = await axios.post("https://x8ki-letl-twmt.n7.xano.io/api:1p9FGSWt/auth/login" , body)
+    const res = await axios.post("https://x8ki-letl-twmt.n7.xano.io/api:84q3nPOe/auth/login" , body)
     return {
         verifyCodeSuccess : res.data?.authToken
     }

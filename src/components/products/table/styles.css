@@ -5,11 +5,9 @@
   justify-content: space-around;
 }
 
-.curson{
+.curson {
   cursor: pointer;
 }
-
-
 
 .btn-wrap > button,
 .btn-wraps > button {
@@ -25,7 +23,7 @@
   color: orangered;
 }
 
-.bx-message-square-edit{
+.bx-message-square-edit {
   color: green !important;
 }
 
@@ -114,13 +112,12 @@
   font-weight: 500;
 }
 
-.content_delete_box > p:nth-child(2){
-    margin-top: 10px;
-    font-size: 13px;
-    color: #f00;
-    font-weight: bold;
+.content_delete_box > p:nth-child(2) {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #f00;
+  font-weight: bold;
 }
-
 
 .ant-table-filter-column {
   display: flex !important;
@@ -129,9 +126,8 @@
 }
 
 .ant-dropdown-trigger {
-  
-  width: 30px !important;
-  height: 30px !important;
+  /* width: 30px !important;
+  height: 30px !important; */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -142,7 +138,7 @@
   font-size: 14px !important;
 }
 
-.tooltip_box > span{
+.tooltip_box > span {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -150,14 +146,25 @@
   font-weight: bold;
 }
 
-.tooltip_box > span > span{
+.tooltip_box > span > span {
   font-size: 14px;
   font-weight: 400;
   margin-left: 10px;
 }
 
-.boxx{
+.boxx {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.ant-image-mask-info{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0;
+}
+
+.ant-image-mask-info > .anticon-eye{
+  margin: 0 !important;
 }

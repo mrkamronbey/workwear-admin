@@ -26,6 +26,7 @@ import { Layout, Menu, theme } from "antd";
 import "./styles.css";
 import logo from "../../assets/image/logos.png";
 import { adminGet } from "../../redux/admin_add/index";
+import { padding } from "@mui/system";
 const { Header, Sider, Footer, Content } = Layout;
 
 
@@ -51,12 +52,12 @@ const VerticalSidebar = ({ children, setIsChecked }) => {
         setTimeout(() => {
             navigate("/");
             window.location.reload();
-        }, "1500");
+        }, "500");
     };
 
-    const onChange = (checked) => {
-        setIsChecked(checked);
-        window.localStorage.setItem('checked', checked)
+    const onChange = () => {
+        window.localStorage.setItem('checked', 'false')
+        window.location.reload()
     };
     const {
         token: { colorBgContainer },
@@ -67,8 +68,8 @@ const VerticalSidebar = ({ children, setIsChecked }) => {
     const items = [
         {
             label: <Tooltip title={text}>
-                <button onClick={HandleLogout}>
-                    Выйти
+                <button className="tool_btns" onClick={HandleLogout}>
+                    <span>Выйти</span>
                     <LoginOutlined />
                 </button>
             </Tooltip>,
@@ -181,11 +182,7 @@ const VerticalSidebar = ({ children, setIsChecked }) => {
                     </div>
                     <div className="left">
                         <div className="icons">
-                            {/* <CommentOutlined style={{ fontSize: "16px", color: "#fff" }} />
-                            <BellOutlined style={{ fontSize: "16px", color: "#fff" }} />
-                            <QuestionCircleOutlined
-                                style={{ fontSize: "20px", color: "#fff" }}
-                            /> */}
+                            
                         </div>
                         <div className="profile">
                             <Dropdown
@@ -198,7 +195,7 @@ const VerticalSidebar = ({ children, setIsChecked }) => {
                                 <a onClick={(e) => e.preventDefault()}>
                                     <Space>
                                         <SettingOutlined />
-                                        <span className="drop_span">Setting</span>
+                                        <span className="drop_span">Настройки</span>
                                     </Space>
                                 </a>
                             </Dropdown>
@@ -232,7 +229,8 @@ const VerticalSidebar = ({ children, setIsChecked }) => {
                         textAlign: 'center',
                         background: "transparent",
                         color: "rgb(31, 171, 138)",
-                        fontWeight: '500'
+                        fontWeight: '500',
+                        padding: "10px 20px"
                     }}
                 >
                     ©2023 Created by Kamronbey

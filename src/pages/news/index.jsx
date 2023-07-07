@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import NewsComponent from "../../components/news";
 import Sidebar from "../../components/sidebar";
 import HorizontalSidebar from "../../components/horizontal-sidebar";
+import VerticalSidebar from "../../components/vertical-sidebar";
 function News() {
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -20,17 +21,27 @@ function News() {
     dispatch(NewsGet());
   }, []);
   return (
-    <HorizontalSidebar>
-        <WrapperContainer style={{marginTop: "112px"}}>
-          <HeaderTopCommon
-            title={"Новости"}
-            onClick={showDrawer}
-            textBtn={"Добавить новости"}
-          />
-          <NewsComponent handleClose={onClose} open={open} />
-        </WrapperContainer>
-      
-    </HorizontalSidebar>
+
+
+    window.localStorage.getItem("checked") == 'false' ? <HorizontalSidebar>
+      <WrapperContainer style={{ marginTop: "112px" }}>
+        <HeaderTopCommon
+          title={"Новости"}
+          onClick={showDrawer}
+          textBtn={"Добавить новости"}
+        />
+        <NewsComponent handleClose={onClose} open={open} />
+      </WrapperContainer>
+    </HorizontalSidebar> : <VerticalSidebar>
+      <WrapperContainer>
+        <HeaderTopCommon
+          title={"Новости"}
+          onClick={showDrawer}
+          textBtn={"Добавить новости"}
+        />
+        <NewsComponent handleClose={onClose} open={open} />
+      </WrapperContainer>
+    </VerticalSidebar>
   );
 }
 export default News;

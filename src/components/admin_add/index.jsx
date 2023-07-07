@@ -11,13 +11,13 @@ function AdminAddComponent({ open, handleClose }) {
   const [openDelete, setOpenDelete] = useState(false);
   const handleCloseDelete = () => setOpenDelete(false);
   const handleDeleteModal = (e) => {
-    setAdminId(e.target.id);
+    setAdminId(e.currentTarget.id);
     setOpenDelete(true);
   };
   const [openPut, setOpenPut] = useState(false);
   const handleClosePut = () => setOpenPut(false);
   const handlePutModal = (e) => {
-    setAdminId(e.target.id);
+    setAdminId(e.currentTarget.id);
     setOpenPut(true);
   };
   const HandleDelete = async (e) => {

@@ -8,6 +8,7 @@ import Sidebar from "../../components/sidebar";
 import AdminAddComponent from "../../components/admin_add";
 import { motion } from "framer-motion";
 import HorizontalSidebar from "../../components/horizontal-sidebar";
+import VerticalSidebar from "../../components/vertical-sidebar";
 function AddAdmin() {
   const adminGetState = useSelector((state) => state.adminadd);
   const [open, setOpen] = useState(false);
@@ -22,8 +23,8 @@ function AddAdmin() {
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   return (
-    <Sidebar>
-      <WrapperContainer style={{marginTop: "112px"}}>
+    window.localStorage.getItem("checked") == 'false' ? <HorizontalSidebar>
+      <WrapperContainer style={{ marginTop: "112px" }}>
         <HeaderTopCommon
           title={"Админ"}
           onClick={handleOpen}
@@ -32,7 +33,17 @@ function AddAdmin() {
         <AdminAddComponent handleClose={handleClose} open={open} />
       </WrapperContainer>
 
-    </Sidebar>
+    </HorizontalSidebar> : <VerticalSidebar>
+      <WrapperContainer>
+        <HeaderTopCommon
+          title={"Админ"}
+          onClick={handleOpen}
+          textBtn={"Админ добавить"}
+        />
+        <AdminAddComponent handleClose={handleClose} open={open} />
+      </WrapperContainer>
+
+    </VerticalSidebar>
   );
 }
 export default AddAdmin;

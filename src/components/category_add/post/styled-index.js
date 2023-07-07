@@ -15,29 +15,48 @@ export const Wrapper = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 55px;
-    border-radius: 15px;
+    /* height: 167px; */
+    border-radius: 20px;
     border-style: solid;
     text-align: center;
-    padding: 10px 10px 15px 10px;
+    padding: 15px;
     cursor: pointer;
+    margin-bottom: 20px;
   }
   .spins {
     width: 100%;
-    height: 70%;
+    height: 46.70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f3f3f3;
     border-radius: 15px;
     padding-top: 5px;
-    /* padding-bottom: 20px; */
-    /* margin-top: 10px; */
+    border: 3px solid #f3f3f3;
+    margin-bottom: 20px;
+  }
+
+  .spinss {
+    width: 100%;
+    height: 165.54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 20px;
+    padding-top: 5px;
+    border: 3px solid #f3f3f3;
+    margin-bottom: 20px;
   }
   .span-download {
-    font-size: 30px;
-    position: relative;
-    top: 10px;
+    font-size: 20px;
     margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+  }
+
+  .span-download > span{
+    margin-left: 10px;
+    font-size: 15px
   }
 `;

@@ -14,15 +14,17 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
   rows.map((elem, index) => {
     data.push({
       data: index + 1,
+      Фото: <Image
+        width="100px"
+        height="100%"
+        style={{ aspectRatio: "16 / 9", borderRadius: "20px" }}
+        src={elem.image}
+      />,
       key: elem.id,
       Имякатегорииузб: elem.title_uz,
       Имякатегориирусский: elem.title_ru,
       Имякатегорииен: elem.title_en,
-      Фото: <Image
-        width={120}
-        height={100}
-        src={elem.image}
-      />,
+
       Действие: (
         <div className="boxx">
           <div className="btn-wraps">
@@ -78,6 +80,12 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
       align: "center",
     },
     {
+      title: "Фото",
+      dataIndex: "Фото",
+      key: "Фото",
+      align: "center",
+    },
+    {
       title: "Имя категории узб",
       dataIndex: "Имякатегорииузб",
       key: "Имякатегорииузб",
@@ -92,12 +100,6 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
       dataIndex: "Имякатегорииен",
       key: "Имякатегорииен",
 
-    },
-    {
-      title: "Фото",
-      dataIndex: "Фото",
-      key: "Фото",
-      align: "center",
     },
     {
       title: "Действие",

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import Sidebar from "../../components/sidebar";
 import ProductsComponent from "../../components/products";
 import HorizontalSidebar from "../../components/horizontal-sidebar";
+import VerticalSidebar from "../../components/vertical-sidebar";
 
 function Product() {
   const productGetState = useSelector((state) => state.product);
@@ -28,16 +29,26 @@ function Product() {
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   return (
-    <HorizontalSidebar>
-        <WrapperContainer style={{marginTop: "112px"}}>
-          <HeaderTopCommon
-            title={"Продукт"}
-            onClick={showDrawer}
-            textBtn={"Добавить продукт"}
-          />
-          <ProductsComponent handleClose={onClose} open={open} />
-        </WrapperContainer>
-    </HorizontalSidebar>
+
+    window.localStorage.getItem("checked") == 'false' ? <HorizontalSidebar>
+      <WrapperContainer style={{ marginTop: "112px" }}>
+        <HeaderTopCommon
+          title={"Продукт"}
+          onClick={showDrawer}
+          textBtn={"Добавить продукт"}
+        />
+        <ProductsComponent handleClose={onClose} open={open} />
+      </WrapperContainer>
+    </HorizontalSidebar> : <VerticalSidebar>
+      <WrapperContainer>
+        <HeaderTopCommon
+          title={"Продукт"}
+          onClick={showDrawer}
+          textBtn={"Добавить продукт"}
+        />
+        <ProductsComponent handleClose={onClose} open={open} />
+      </WrapperContainer>
+    </VerticalSidebar>
   );
 }
 export default Product;

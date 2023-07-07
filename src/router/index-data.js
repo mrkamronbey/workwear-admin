@@ -6,15 +6,15 @@ const Contact = lazy(() => import("../pages/contact/index"));
 const Category = lazy(() => import("../pages/category/index"));
 const Product = lazy(() => import("../pages/products/index"));
 const News = lazy(() => import("../pages/news/index"));
-const Project = lazy(() => import("../pages/projects/index"))
+const Project = lazy(() => import("../pages/projects/index"));
 const cookie = new Cookies();
-
+const token = cookie.get("token");
 
 export const RouterData = [
   {
     id: 1,
     path: "/",
-    component: cookie.get("token") ? null : <Login />,
+    component: <Login />,
   },
   {
     id: 2,

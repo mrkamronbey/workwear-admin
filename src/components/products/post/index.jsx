@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonBtn from "../../common/CommonBtn";
 import ModalCommon from "../../common/Modal/Modal";
 import { Wrapper } from "./styled-index";
@@ -8,42 +8,42 @@ import { CategoryGet } from "../../../redux/category/index";
 import { Row, Col } from "react-grid-system";
 import SelectCommon from "../../common/select/index";
 import DrawerCommon from '../../common/Drawer/index'
+import InputCommon from '../../common/input/index'
 import "./styles.css";
-import { Spin } from "antd";
+import { Spin, Input, Image } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 
 function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
 
-  console.log(selectId)
-
   const dispatch = useDispatch();
-  const titleUz = useRef();
-  const titleRu = useRef();
-  const titleEn = useRef();
-  const productTypeUz = useRef();
-  const productTypeRu = useRef();
-  const productTypeEn = useRef();
-  const contentsUz = useRef();
-  const contentsRu = useRef();
-  const contentsEn = useRef();
-  const destinationUz = useRef();
-  const destinationRu = useRef();
-  const destinationEn = useRef();
-  const colorUz = useRef();
-  const colorRu = useRef();
-  const colorEn = useRef();
-  const mainFabricUz = useRef();
-  const mainFabricRu = useRef();
-  const mainFabricEn = useRef();
-  const compounds = useRef();
-  const storageUz = useRef();
-  const storageRu = useRef();
-  const storageEn = useRef();
+  const [titleUz, setTitleUz] = useState();
+  const [titleRu, setTitleRU] = useState();
+  const [titleEn, setTitleEn] = useState();
+  const [productTypeUz, setProductTypeUz] = useState();
+  const [productTypeRu, setProductTypeRu] = useState();
+  const [productTypeEn, setProductTypeEn] = useState();
+  const [contentsUz, setContentsUz] = useState();
+  const [contentsRu, setContentsRu] = useState();
+  const [contentsEn, setContentsEn] = useState();
+  const [destinationUz, setDestinationUz] = useState();
+  const [destinationRu, setDestinationRu] = useState();
+  const [destinationEn, setDestinationEn] = useState();
+  const [colorUz, setColorUz] = useState();
+  const [colorRu, setColorRu] = useState();
+  const [colorEn, setColorEn] = useState();
+  const [mainFabricUz, setMainFabricUz] = useState();
+  const [mainFabricRu, setMainFabricRu] = useState();
+  const [mainFabricEn, setMainFabricEn] = useState();
+  const [compounds, setCompounds] = useState();
+  const [storageUz, setStorageUz] = useState();
+  const [storageRu, setStorageRu] = useState();
+  const [storageEn, setStorageEn] = useState();
 
 
 
   // category get
   const categoryGets = useSelector((state) => state.category.categoryGet.data);
-  
+
   useEffect(() => {
     dispatch(CategoryGet());
   }, []);
@@ -58,40 +58,40 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
     await dispatch(UploadImage(e));
   };
 
-  window.localStorage.setItem('categoryId', selectId)
+  // window.localStorage.setItem('categoryId', selectId)
 
-   const SelectChange = (e) => {
-      setSelectId(e)
-   }
+  const SelectChange = (e) => {
+    setSelectId(e)
+    window.localStorage.setItem('selectId', e)
+  }
 
   // product post
   const productPost = useSelector((state) => state.product);
   const HandleSubmit = async (e) => {
-    console.log("ok");
     e.preventDefault();
     const body = {
-      title_uz: titleUz.current.value,
-      title_ru: titleRu.current.value,
-      title_en: titleEn.current.value,
-      product_type_uz: productTypeUz.current.value,
-      product_type_ru: productTypeRu.current.value,
-      product_type_en: productTypeEn.current.value,
-      contents_uz: contentsUz.current.value,
-      contents_ru: contentsRu.current.value,
-      contents_en: contentsEn.current.value,
-      destination_uz: destinationUz.current.value,
-      destination_ru: destinationRu.current.value,
-      destination_en: destinationEn.current.value,
-      color_uz: colorUz.current.value,
-      color_ru: colorRu.current.value,
-      color_en: colorEn.current.value,
-      main_fabric_uz: mainFabricUz.current.value,
-      main_fabric_ru: mainFabricRu.current.value,
-      main_fabric_en: mainFabricEn.current.value,
-      Compound: compounds.current.value,
-      storage_uz: storageUz.current.value,
-      storage_ru: storageRu.current.value,
-      storage_en: storageEn.current.value,
+      title_uz: titleUz,
+      title_ru: titleRu,
+      title_en: titleEn,
+      product_type_uz: productTypeUz,
+      product_type_ru: productTypeRu,
+      product_type_en: productTypeEn,
+      contents_uz: contentsUz,
+      contents_ru: contentsRu,
+      contents_en: contentsEn,
+      destination_uz: destinationUz,
+      destination_ru: destinationRu,
+      destination_en: destinationEn,
+      color_uz: colorUz,
+      color_ru: colorRu,
+      color_en: colorEn,
+      main_fabric_uz: mainFabricUz,
+      main_fabric_ru: mainFabricRu,
+      main_fabric_en: mainFabricEn,
+      Compound: compounds,
+      storage_uz: storageUz,
+      storage_ru: storageRu,
+      storage_en: storageEn,
       category: selectId,
       image: dataProject.data
     };
@@ -100,11 +100,15 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
     dispatch(ProductGet());
     HandleClose();
   };
-  // if (ProductGet.pending) {
-  //   setLoadings(true)
-  // } else if(ProductGet.fulfilled){
-  //   setLoadings(false)
-  // }
+  const antIcon = (
+    <LoadingOutlined
+      style={{
+        fontSize: 24,
+        color: "#000"
+      }}
+      spin
+    />
+  );
 
   const options = [];
   categoryGets.map((elem) =>
@@ -121,7 +125,7 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
           <div className="input_wrap">
             <div className="scrool">
               <Row className="row">
-                <Col className="col" lg={12}>
+                <Col className="col" lg={4}>
                   <h4>Выбрать категорию</h4>
                   <div className="selects">
                     <SelectCommon
@@ -130,230 +134,259 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
                       options={options}
                     />
                   </div>
-                </Col>
-                <Col className="col" lg={12}>
                   <h4>Добавить фотографию</h4>
-                  {dataProject.Loading == true ? (
-                    <div className="spins">
-                      <Spin size="large" />
-                    </div>
-                  ) : (
-                    <>
-                      <input type="file" id="file" onChange={HandleChange} />
-                      <label for="file" class="custom-file-upload">
-                        <span className="span-download">
-                          <ion-icon name="cloud-download-outline"></ion-icon>
-                        </span>
-                      </label>
-                    </>
-                  )}
+                  <Row className="row">
+                    <Col className="col_upload" lg={6}>
+                      {
+                        dataProject.Loading == true ? (
+                          <div className="spinss">
+                            <Spin indicator={antIcon} />
+                          </div>
+                        ) : (
+                          dataProject.Success == true ? (
+                            <Image
+                              style={{ aspectRatio: "1 / 1", borderRadius: "20px", zIndex: "99999999", objectFit: "cover" }}
+                              src={dataProject.data}
+                            />
+                          ) : (
+                            <div className="none_img">
+                              <i class='bx bxs-image'></i>
+                            </div>
+                          )
+                        )
+                      }
+                    </Col>
+                    <Col className="col_upload" lg={6}>
+                      {
+                        dataProject.Loading == true ? (
+                          <div className="spins">
+                            <Spin indicator={antIcon} />
+                          </div>
+                        ) : (
+                          <>
 
+                            <input type="file" id="file" onChange={HandleChange} />
+                            <label for="file" class="custom-file-upload">
+                              <span className="span-download">
+                                <ion-icon name="cloud-download-outline"></ion-icon>
+                                <span>Загрузить фото</span>
+                              </span>
+                            </label>
+                          </>
+                        )
+                      }
+                    </Col>
+                    <Col lg={12}>
+                      <div className="infor_box">
+                        <p><span>Формат: </span>PNG, JPEG, JPG, SVG. Рекомендуемое разрешение <span>1080×1080</span></p>
+                        <p> <span>Размер: </span>размер файла не должен превышать 5 MB</p>
+                      </div>
+                    </Col>
+                  </Row>
                 </Col>
-                <Col className="col" lg={4}>
+                <Col className="col" lg={8}>
                   <h4>Имя продукта</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="узбекский"
                     required
-                    ref={titleUz}
+                    onChange={(e) => setTitleUz(e.currentTarget.value)}
                   />
-                </Col>
-                <Col className="col" lg={4}>
-                  <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="русский"
                     required
-                    ref={titleRu}
+                    onChange={(e) => setTitleEn(e.currentTarget.value)}
                   />
-                </Col>
-                <Col className="col" lg={4}>
-                  <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="английский"
                     required
-                    ref={titleEn}
+                    onChange={(e) => setTitleEn(e.currentTarget.value)}
                   />
+
+                  <Row>
+                    <Col className="col" lg={12}>
+                      <h4>Вид изделия</h4>
+                      <InputCommon
+                        type="text"
+                        placeholder="узбекский"
+                        required
+                        onChange={(e) => setProductTypeUz(e.currentTarget.value)}
+                      />
+                    </Col>
+                    <Col className="col" lg={12}>
+                      <InputCommon
+                        type="text"
+                        placeholder="русский"
+                        required
+                        onChange={(e) => setProductTypeRu(e.currentTarget.value)}
+                      />
+                    </Col>
+                    <Col className="col" lg={12}>
+                      <InputCommon
+                        type="text"
+                        placeholder="английский"
+                        required
+                        onChange={(e) => setProductTypeEn(e.currentTarget.value)}
+                      />
+                    </Col>
+                  </Row>
                 </Col>
-                <Col className="col" lg={4}>
-                  <h4>Вид изделия</h4>
-                  <input
-                    type="text"
-                    placeholder="узбекский"
-                    required
-                    ref={productTypeUz}
-                  />
-                </Col>
-                <Col className="col" lg={4}>
-                  <h4>*</h4>
-                  <input
-                    type="text"
-                    placeholder="русский"
-                    required
-                    ref={productTypeRu}
-                  />
-                </Col>
-                <Col className="col" lg={4}>
-                  <h4>*</h4>
-                  <input
-                    type="text"
-                    placeholder="английский"
-                    required
-                    ref={productTypeEn}
-                  />
-                </Col>
+
                 <Col className="col" lg={4}>
                   <h4>Комплектность</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="узбекский"
                     required
-                    ref={contentsUz}
+                    onChange={(e) => setContentsUz(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="русский"
                     required
-                    ref={contentsRu}
+                    onChange={(e) => setContentsRu(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="английский"
                     required
-                    ref={contentsEn}
+                    onChange={(e) => setContentsEn(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>Назначение</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="узбекский"
                     required
-                    ref={destinationUz}
+                    onChange={(e) => setDestinationUz(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="русский"
                     required
-                    ref={destinationRu}
+                    onChange={(e) => setDestinationRu(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="английский"
                     required
-                    ref={destinationEn}
+                    onChange={(e) => setDestinationEn(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>Цвет</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="узбекский"
                     required
-                    ref={colorUz}
+                    onChange={(e) => setColorUz(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="русский"
                     required
-                    ref={colorRu}
+                    onChange={(e) => setColorRu(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="английский"
                     required
-                    ref={colorEn}
+                    onChange={(e) => setColorEn(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>Основная ткань</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="узбекский"
                     required
-                    ref={mainFabricUz}
+                    onChange={(e) => setMainFabricUz(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="русский"
                     required
-                    ref={mainFabricRu}
+                    onChange={(e) => setMainFabricRu(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="английский"
                     required
-                    ref={mainFabricEn}
+                    onChange={(e) => setMainFabricEn(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={12}>
                   <h4>Состав</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="печатание..."
                     required
-                    ref={compounds}
+                    onChange={(e) => setCompounds(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>Гарантийный срок</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="узбекский"
                     required
-                    ref={storageUz}
+                    onChange={(e) => setStorageUz(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="русский"
                     required
-                    ref={storageRu}
+                    onChange={(e) => setStorageRu(e.currentTarget.value)}
                   />
                 </Col>
                 <Col className="col" lg={4}>
                   <h4>*</h4>
-                  <input
+                  <InputCommon
                     type="text"
                     placeholder="английский"
                     required
-                    ref={storageEn}
+                    onChange={(e) => setStorageEn(e.currentTarget.value)}
                   />
                 </Col>
               </Row>
+              <hr />
               <CommonBtn
                 type="submit"
                 style={{
-                  margin: "20px auto 0 auto",
-                  padding: "12px 40px",
-                  border: "2px solid #fff",
+                  margin: "20px 10px 0 auto",
+                  padding: "15px 40px",
+                  border: "2px solid #f3f3f3",
+                  borderRadius: "50px"
                 }}
               >
                 Добавить
