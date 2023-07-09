@@ -46,6 +46,7 @@ function CategoryAddForm({ Open, HandleClose }) {
     );
     dispatch(CategoryGet());
     HandleClose();
+    window.location.reload()
   };
 
 

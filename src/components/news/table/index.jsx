@@ -46,7 +46,7 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
         </Tooltip>
       ),
       Темаен: (
-        <Tooltip overlayInnerStyle={{
+        <Tooltip  overlayInnerStyle={{
           width: "500px", height: "100%", borderRadius: "20px",
           padding: "15px"
         }} color="#1fab8a" title={
@@ -58,7 +58,7 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
         </Tooltip>
       ),
       Описаниеuz: (
-        <Tooltip overlayInnerStyle={{
+        <Tooltip  overlayInnerStyle={{
           width: "500px", height: "100%", borderRadius: "20px",
           padding: "15px"
         }} color="#1fab8a" title={
@@ -121,11 +121,8 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
                 <div className="content_delete_box">
                   <p>Вы уверены, что хотите удалить эту новости?</p>
                   <div className="btn_wrap_delete">
-                    <button className="no_btn">
-                      Нет
-                    </button>
                     <button onClick={HandleDelete} id={elem.id} className="yes_btn">
-                      да
+                      Удалить
                     </button>
                   </div>
                 </div>
@@ -133,7 +130,7 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
               title={
                 <div className="delete_box">
                   <i class='bx bxs-error-circle'></i>
-                  <span>Удалите новости <span>{elem.title_ru}</span></span>
+                  <span>Удалите новости <span>{elem.title_ru.slice(0,20)}...</span></span>
                 </div>
               }
             >
@@ -157,47 +154,56 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
       key: "data",
       width: 50,
       align: "center",
+      fixed: 'left'
     },
     {
       title: "Фото",
       dataIndex: "Фото",
       key: "Фото",
       align: "center",
+      fixed: 'left'
     },
     {
       title: "Тема узб",
       dataIndex: "Темаузб",
       key: "Темаузб",
+      width: 300
     },
     {
       title: "Тема рус",
       dataIndex: "Темарусский",
       key: "Темарусский",
+      width: 300
     },
     {
       title: "Тема ен",
       dataIndex: "Темаен",
       key: "Темаен",
+      width: 300
     },
     {
       title: "Описаниеuz",
       dataIndex: "Описаниеuz",
       key: "Описаниеuz",
+      width: 300
     },
     {
       title: "Описаниеru",
       dataIndex: "Описаниеru",
       key: "Описаниеru",
+      width: 300
     },
     {
       title: "Описаниеen",
       dataIndex: "Описаниеen",
       key: "Описаниеen",
+      width: 300
     },
     {
       title: "Ссылка",
       dataIndex: "Ссылка",
-      key: "Ссылка"
+      key: "Ссылка",
+      width: 300
     },
     {
       title: "Действие",
@@ -215,6 +221,7 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
       bordered
       scroll={{
         y: 330,
+        x: 2000
       }}
       columns={columns}
       data={data}

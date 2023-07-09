@@ -49,9 +49,9 @@ select {
   color: #aaaaaa;
 }
 
-input:focus {
+/* input:focus {
   border: 2px solid red;
-}
+} */
 
 /* .ant-drawer-wrapper-body{
   background: #9796F0  !important;
@@ -64,6 +64,12 @@ input:focus {
 .ant-drawer-title {
   font-size: 30px !important;
   font-weight: bold;
+}
+
+.select_alert_text{
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
 }
 
 .infor_box {

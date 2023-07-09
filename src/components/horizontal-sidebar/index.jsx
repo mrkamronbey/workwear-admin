@@ -5,6 +5,7 @@ import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import { Switch } from 'antd';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -31,6 +32,12 @@ const { Header, Content, Footer } = Layout;
 
 
 const HorizontalSidebar = ({ children, setIsChecked }) => {
+  // const [isDarkMode, setDarkMode] = useState(false);
+
+  // const toggleDarkMode = (checked: boolean) => {
+  //   setDarkMode(checked);
+  // };
+
   const emailSave = window.localStorage.getItem('emails')
   const text = <span>Выйти</span>;
   const dispatch = useDispatch();
@@ -78,6 +85,20 @@ const HorizontalSidebar = ({ children, setIsChecked }) => {
       label: <div className="switch_wrapp"> <span>Боковая панель</span> <Switch onChange={onChange} /></div>,
       key: '1',
     },
+    // {
+    //   label: (
+    //     <div className="darkmode">
+    //       <span>DarkMode</span>
+    //       <DarkModeSwitch
+    //         checked={isDarkMode}
+    //         onChange={toggleDarkMode}
+    //         size={30}
+    //         moonColor="black"
+    //       />
+    //     </div>
+    //   ),
+    //   key: "2"
+    // }
   ];
 
   return (

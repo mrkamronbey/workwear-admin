@@ -5,6 +5,7 @@ import Delete from "./delete";
 import AdminAddForm from "./post";
 import Put from "./put";
 import TableAdd from "./table";
+
 function AdminAddComponent({ open, handleClose }) {
   const dispatch = useDispatch();
   const [adminId, setAdminId] = useState();

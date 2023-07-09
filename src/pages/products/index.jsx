@@ -31,7 +31,7 @@ function Product() {
   return (
 
     window.localStorage.getItem("checked") == 'false' ? <HorizontalSidebar>
-      <WrapperContainer style={{ marginTop: "112px" }}>
+      <WrapperContainer style={{ marginTop: "96px" }}>
         <HeaderTopCommon
           title={"Продукт"}
           onClick={showDrawer}

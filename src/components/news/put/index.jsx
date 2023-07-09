@@ -26,6 +26,7 @@ function Put({ openPut, handleClosePut, HandlePut, put_id }) {
   const dataProject = useSelector((state) => state.news?.uploadNews);
   const newsGets = useSelector((state) => state.news.newsGet.data);
 
+  const FilterData = newsGets.filter(elem => elem.id == ids)
   useEffect(() => {
     dispatch(NewsGet());
   }, []);
@@ -42,7 +43,7 @@ function Put({ openPut, handleClosePut, HandlePut, put_id }) {
       description_ru: descriptionRu,
       description_en: descriptionEn,
       link: links,
-      image: dataProject.data
+      image: !dataProject.data ? FilterData.map(elem => elem.image)[0] : dataProject.data,
     };
     await dispatch(NewsPut({ body, id: ids }));
     dispatch(NewsGet());

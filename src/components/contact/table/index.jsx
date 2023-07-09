@@ -54,11 +54,8 @@ export default function TableAdd({ onClickDelete, HandleDelete }) {
               <div className="content_delete_box">
                 <p>Вы уверены, что хотите удалить эту заявка?</p>
                 <div className="btn_wrap_delete">
-                  <button className="no_btn">
-                    Нет
-                  </button>
                   <button onClick={HandleDelete} id={elem.id} className="yes_btn">
-                    да
+                    Удалить
                   </button>
                 </div>
               </div>

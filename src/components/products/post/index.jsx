@@ -14,7 +14,6 @@ import { Spin, Input, Image } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 
 function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
-
   const dispatch = useDispatch();
   const [titleUz, setTitleUz] = useState();
   const [titleRu, setTitleRU] = useState();
@@ -40,7 +39,6 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
   const [storageEn, setStorageEn] = useState();
 
 
-
   // category get
   const categoryGets = useSelector((state) => state.category.categoryGet.data);
 
@@ -62,11 +60,10 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
 
   const SelectChange = (e) => {
     setSelectId(e)
-    window.localStorage.setItem('selectId', e)
   }
 
   // product post
-  const productPost = useSelector((state) => state.product);
+  // const productPost = useSelector((state) => state.product);
   const HandleSubmit = async (e) => {
     e.preventDefault();
     const body = {
@@ -99,6 +96,7 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
     await dispatch(ProductPost(body));
     dispatch(ProductGet());
     HandleClose();
+    window.location.reload()
   };
   const antIcon = (
     <LoadingOutlined
@@ -129,6 +127,7 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
                   <h4>Выбрать категорию</h4>
                   <div className="selects">
                     <SelectCommon
+                      defaultValue={selectId}
                       onChange={SelectChange}
                       placeholder="Выбрать"
                       options={options}
@@ -196,7 +195,7 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
                     type="text"
                     placeholder="русский"
                     required
-                    onChange={(e) => setTitleEn(e.currentTarget.value)}
+                    onChange={(e) => setTitleRU(e.currentTarget.value)}
                   />
                   <InputCommon
                     type="text"
@@ -233,7 +232,6 @@ function ProductAddForm({ Open, HandleClose, setSelectId, selectId }) {
                     </Col>
                   </Row>
                 </Col>
-
                 <Col className="col" lg={4}>
                   <h4>Комплектность</h4>
                   <InputCommon

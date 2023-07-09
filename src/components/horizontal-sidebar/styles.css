@@ -87,3 +87,15 @@
   font-weight: bold;
   font-size: 14px;
 }
+
+.darkmode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.darkmode > span {
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+}

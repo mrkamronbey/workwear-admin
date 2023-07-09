@@ -40,7 +40,9 @@ function AddAdmin() {
           onClick={handleOpen}
           textBtn={"Админ добавить"}
         />
+
         <AdminAddComponent handleClose={handleClose} open={open} />
+      
       </WrapperContainer>
 
     </VerticalSidebar>

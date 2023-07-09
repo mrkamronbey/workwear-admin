@@ -19,7 +19,6 @@ function Put({
   put_id,
   setSelectId,
   selectId,
-  setLoadings,
 }) {
   const ids = put_id;
   const dispatch = useDispatch();
@@ -52,8 +51,9 @@ function Put({
   useEffect(() => {
     dispatch(ProductGet());
   }, []);
+  const FilterData = productGets.filter(elem => elem.id == ids)
   const filterData = productGets.filter(elem => elem.id == ids)
-  console.log(filterData)
+  // console.log(filterData)
   // product get
   // category get
   const categoryGets = useSelector((state) => state.category.categoryGet.data);
@@ -73,17 +73,20 @@ function Put({
     await dispatch(UploadImage(e));
   };
 
+
   const options = [];
   categoryGets.map((elem) =>
     options.push({
       value: elem.id,
       label: elem.title_ru,
+
     })
   );
   const SelectChange = (e) => {
     setSelectId(e)
-
+    `selected${e}`
   }
+  console.log(selectId)
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
@@ -111,15 +114,13 @@ function Put({
       storage_ru: storageRu,
       storage_en: storageEn,
       category: selectId,
-      image: dataProject.data
+      image: !dataProject.data ? FilterData.map(elem => elem.image)[0] : dataProject.data,
     };
 
     await dispatch(ProductPut({ body, id: ids }));
     dispatch(ProductGet());
     handleClosePut();
-    // setTimeout(() => {
     window.location.reload()
-    // }, 1000)
   };
 
   const antIcon = (
@@ -146,11 +147,11 @@ function Put({
                           <h4>Выбрать категорию</h4>
                           <div className="selects">
                             <SelectCommon
-                              defaultValue={selectId}
+                              defaultValue={elem?.category?.title_ru}
                               onChange={SelectChange}
-                              placeholder="Выбрать"
                               options={options}
                             />
+                            <p className="select_alert_text">Выбор категории товара является обязательным. В противном случае ваш продукт не будет редактироваться</p>
                           </div>
                           <h4>Добавить фотографию</h4>
                           <Row className="row">

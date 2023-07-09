@@ -2,7 +2,7 @@ import React from "react";
 import { Select } from "antd";
 import "./styles.css";
 
-const SelectCommon = ({ placeholder, defaultValue, options, onChange }) => {
+const SelectCommon = ({ placeholder, defaultValue, options, onChange, selected }) => {
   return (
     <>
       <div className="select_wrapp">

@@ -8,7 +8,7 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
   const adminGetState = useSelector((state) => state.adminadd);
   const rows = adminGetState.userGet?.data;
   console.log(rows)
-  
+
 
   const data = [];
   rows.map((elem, index) => {
@@ -28,11 +28,8 @@ export default function TableAdd({ HandleDelete, onClickPut }) {
                 <div className="content_delete_box">
                   <p>Вы уверены, что хотите удалить эту админ?</p>
                   <div className="btn_wrap_delete">
-                    <button className="no_btn">
-                      Нет
-                    </button>
                     <button onClick={HandleDelete} id={elem.id} className="yes_btn">
-                      да
+                      Удалить
                     </button>
                   </div>
                 </div>

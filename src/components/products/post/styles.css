@@ -49,9 +49,9 @@ select {
   color: #aaaaaa;
 }
 
-input:focus {
+/* input:focus {
   border: 2px solid red;
-}
+} */
 
 /* .ant-drawer-wrapper-body{
   background: #9796F0  !important;

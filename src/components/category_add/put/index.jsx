@@ -18,8 +18,9 @@ function Put({ openPut, handleClosePut, HandlePut, put_id }) {
   const [titleEn, setTitleEn] = useState();
 
   const dataProject = useSelector((state) => state.category?.uploadCategoryImage);
-  const categoryPuts = useSelector((state) => state.category);
+
   const categoryGets = useSelector((state) => state.category.categoryGet.data);
+  const FilterData = categoryGets.filter(elem => elem.id == ids)
   useEffect(() => {
     dispatch(CategoryGet());
   }, []);
@@ -32,7 +33,7 @@ function Put({ openPut, handleClosePut, HandlePut, put_id }) {
       title_uz: titleUz,
       title_ru: titleRu,
       title_en: titleEn,
-      image: dataProject.data
+      image: !dataProject.data ? FilterData.map(elem => elem.image)[0] : dataProject.data,
     };
     await dispatch(CategoryPut({ body, id: ids }));
     dispatch(CategoryGet());
