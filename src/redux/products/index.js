@@ -25,7 +25,7 @@ export const ProductPut = createAsyncThunk(
   }
 );
 
-export const UploadImage = createAsyncThunk("Product/upload", async (e) => {
+export const UploadImage = createAsyncThunk("Product1/upload", async (e) => {
   const formData = new FormData();
   formData.append("file", e.target.files[0]);
   formData.append("upload_preset", "pa92xo85");
@@ -37,6 +37,46 @@ export const UploadImage = createAsyncThunk("Product/upload", async (e) => {
     return error;
   }
 });
+
+export const UploadImage1 = createAsyncThunk("Product2/upload", async (e) => {
+  const formData = new FormData();
+  formData.append("file", e.target.files[0]);
+  formData.append("upload_preset", "pa92xo85");
+  try {
+    return await axios
+      .post("https://api.cloudinary.com/v1_1/dc3qaagzz/upload", formData)
+      .then((response) => response?.data.secure_url);
+  } catch (error) {
+    return error;
+  }
+});
+
+export const UploadImage2 = createAsyncThunk("Product3/upload", async (e) => {
+  const formData = new FormData();
+  formData.append("file", e.target.files[0]);
+  formData.append("upload_preset", "pa92xo85");
+  try {
+    return await axios
+      .post("https://api.cloudinary.com/v1_1/dc3qaagzz/upload", formData)
+      .then((response) => response?.data.secure_url);
+  } catch (error) {
+    return error;
+  }
+});
+
+export const UploadImage3 = createAsyncThunk("Product4/upload", async (e) => {
+  const formData = new FormData();
+  formData.append("file", e.target.files[0]);
+  formData.append("upload_preset", "pa92xo85");
+  try {
+    return await axios
+      .post("https://api.cloudinary.com/v1_1/dc3qaagzz/upload", formData)
+      .then((response) => response?.data.secure_url);
+  } catch (error) {
+    return error;
+  }
+});
+
 const ProductSlice = createSlice({
   name: "product",
   initialState: {
@@ -62,6 +102,24 @@ const ProductSlice = createSlice({
       Success: false,
     },
     uploadProjects: {
+      Error: false,
+      Loading: false,
+      Success: false,
+      data: "",
+    },
+    uploadProjects1: {
+      Error: false,
+      Loading: false,
+      Success: false,
+      data: "",
+    },
+    uploadProjects2: {
+      Error: false,
+      Loading: false,
+      Success: false,
+      data: "",
+    },
+    uploadProjects3: {
       Error: false,
       Loading: false,
       Success: false,
@@ -141,6 +199,54 @@ const ProductSlice = createSlice({
       state.uploadProjects.Error = true;
       state.uploadProjects.Success = false;
       state.uploadProjects.Loading = false;
+    },
+
+    [UploadImage1.pending]: (state, action) => {
+      state.uploadProjects1.Loading = true;
+    },
+    [UploadImage1.fulfilled]: (state, action) => {
+      state.uploadProjects1.Error = false;
+      state.uploadProjects1.Success = true;
+      state.uploadProjects1.Loading = false;
+      state.uploadProjects1.data = action.payload;
+      // console.log( );
+    },
+    [UploadImage1.rejected]: (state, action) => {
+      state.uploadProjects1.Error = true;
+      state.uploadProjects1.Success = false;
+      state.uploadProjects1.Loading = false;
+    },
+
+    [UploadImage2.pending]: (state, action) => {
+      state.uploadProjects2.Loading = true;
+    },
+    [UploadImage2.fulfilled]: (state, action) => {
+      state.uploadProjects2.Error = false;
+      state.uploadProjects2.Success = true;
+      state.uploadProjects2.Loading = false;
+      state.uploadProjects2.data = action.payload;
+      // console.log( );
+    },
+    [UploadImage2.rejected]: (state, action) => {
+      state.uploadProjects2.Error = true;
+      state.uploadProjects2.Success = false;
+      state.uploadProjects2.Loading = false;
+    },
+
+    [UploadImage3.pending]: (state, action) => {
+      state.uploadProjects.Loading = true;
+    },
+    [UploadImage3.fulfilled]: (state, action) => {
+      state.uploadProjects3.Error = false;
+      state.uploadProjects3.Success = true;
+      state.uploadProjects3.Loading = false;
+      state.uploadProjects3.data = action.payload;
+      // console.log( );
+    },
+    [UploadImage3.rejected]: (state, action) => {
+      state.uploadProjects3.Error = true;
+      state.uploadProjects3.Success = false;
+      state.uploadProjects3.Loading = false;
     },
   },
 });

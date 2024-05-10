@@ -130,3 +130,9 @@ select {
 .col_upload:nth-child(2) {
   padding-right: 0 !important;
 }
+
+.quill {
+  color: #000 !important;
+  margin-bottom: 100px !important;
+  height: 300px !important;
+}
